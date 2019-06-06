@@ -1,0 +1,1124 @@
+{
+	"info": {
+		"_postman_id": "f58c7744-b8f4-4659-b696-ab6c8e327cd5",
+		"name": "New World API's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "App Suites",
+			"item": [
+				{
+					"name": "Add App Suite",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4b6a768-7348-430a-ba60-d2df2eeabb09",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"AppSuiteId\", jsonData.data.id);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"type\": \"appsuites\",\n        \"attributes\": {\n            \"name\": \"Test AppSuite Siva\",\n            \"icon\": \"plus\",\n            \"url\": \"ta.egton.net\",\n            \"rbac\": \"AX3BXX4\",\n            \"app-type\": \"APPSUITE\"\n        }\n    }\n}\n"
+						},
+						"url": {
+							"raw": "{{URL}}/app-suites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All App Suites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b56468fa-3145-4b4d-919c-c200a307ea0b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/app-suites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change App Suite Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "67e93c05-0c5b-4357-84ae-4d3605a747d9",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae\",\n    \"type\": \"appsuites\",\n    \"attributes\": {\n      \"name\": \"Test AppSuite\",\n      \"url\": \"https://ta.egton.net\",\n      \"icon\": \"plus\",\n      \"rbac\": \"A000\"\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/app-suites/{{AppSuiteId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites",
+								"{{AppSuiteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete App Suite",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bae0be19-08a0-49ac-a5fd-a6f7763c8b4c",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/app-suites/{{AppSuiteId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites",
+								"{{AppSuiteId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Apps",
+			"item": [
+				{
+					"name": "Add new App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d4393a2-23fb-4e81-8fc7-ef8c0ded8504",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"AppId\", jsonData.data.id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"data\": {\n    \"type\": \"apps\",\n    \"attributes\": {\n      \"name\": \"Leave Cards\",\n      \"url\": \"https://hr.egton.net/leavecards\",\n      \"icon\": \"people\",\n      \"rbac\": \"AX234\",\n      \"locked\": true\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/app-suites/{{AppSuiteId}}/apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites",
+								"{{AppSuiteId}}",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Apps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2df32c8f-b516-4a1e-aee9-1d68e7077f96",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Apps of an app suite",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2df32c8f-b516-4a1e-aee9-1d68e7077f96",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/app-suites/{{AppSuiteId}}/apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites",
+								"{{AppSuiteId}}",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e9fda5b-5faa-4ccd-8ea8-b1b8d969d9e3",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"apps\",\n    \"attributes\": {\n      \"name\": \"Leave Cards\",\n      \"url\": \"https://hr.egton.net/leavecards\",\n      \"icon\": \"people\",\n      \"rbac\": \"AX234\",\n      \"locked\": true\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/apps/{{AppId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps",
+								"{{AppId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e9fda5b-5faa-4ccd-8ea8-b1b8d969d9e3",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/apps/{{AppId}}/archive",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps",
+								"{{AppId}}",
+								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unarchive App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e9fda5b-5faa-4ccd-8ea8-b1b8d969d9e3",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/apps/{{AppId}}/unarchive",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps",
+								"{{AppId}}",
+								"unarchive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14a80612-7974-41b0-8760-6fc9872ac29d",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/apps/{{AppId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps",
+								"{{AppId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tenants",
+			"item": [
+				{
+					"name": "Add Tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"TenantId\", jsonData.data.id);",
+									"console.log(jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae:app:e55efb3e-7e7c-4e8a-a2a9-fa636c249a25\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae:app:e55efb3e-7e7c-4e8a-a2a9-fa636c249a25\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/tenants",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tenants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and all associated apps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a8cdb8fe-b4d3-45cb-9b66-7e38b01ba3ce",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive Tenants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "871fc79e-4507-423b-b8f1-0737c44e2af1",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}/archive",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}",
+								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unarchive Tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "871fc79e-4507-423b-b8f1-0737c44e2af1",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}/unarchive",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}",
+								"unarchive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Link app to tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}/apps/{{AppId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}",
+								"apps",
+								"{{AppId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Apps for Tenants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}/apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UnLink app to tenant Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}/apps/{{AppId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}",
+								"apps",
+								"{{AppId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
