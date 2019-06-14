@@ -16,12 +16,13 @@
 							"script": {
 								"id": "d4b6a768-7348-430a-ba60-d2df2eeabb09",
 								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"AppSuiteId\", jsonData.data.id);",
+									"",
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"pm.environment.set(\"AppSuiteId\", jsonData.data.id);",
 									"",
 									"",
 									""
@@ -114,13 +115,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/app-suites/",
+							"raw": "{{URL}}/app-suites",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"app-suites",
-								""
+								"app-suites"
 							]
 						}
 					},
@@ -177,54 +177,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete App Suite",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "bae0be19-08a0-49ac-a5fd-a6f7763c8b4c",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{URL}}/app-suites/{{AppSuiteId}}",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"app-suites",
-								"{{AppSuiteId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -245,8 +197,6 @@
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
-									"",
-									"",
 									"",
 									""
 								],
@@ -304,6 +254,17 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result = false;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"AppId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})",
 									""
 								],
 								"type": "text/javascript"
@@ -352,18 +313,7 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"",
-									"pm.test(\"Data is present\", function(){",
-									"    var result;",
-									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
-									"    {",
-									"        if(pm.response.json().data[loop].id===pm.variables.get(\"AppId\")){",
-									"            result=true;",
-									"            break;",
-									"        }",
-									"    }",
-									"    pm.expect(true).to.eql(result);",
-									"})"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -440,7 +390,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"apps\",\n    \"attributes\": {\n      \"name\": \"Leave Cards\",\n      \"url\": \"https://hr.egton.net/leavecards\",\n      \"icon\": \"people\",\n      \"rbac\": \"AX234\",\n      \"locked\": true\n    }\n  }\n}"
+							"raw": "{\n  \"data\": {\n    \"type\": \"apps\",\n    \"attributes\": {\n      \"name\": \"Leave-Cards\",\n      \"url\": \"https://hr.egton.net/leavecards\",\n      \"icon\": \"people\",\n      \"rbac\": \"AX234\",\n      \"locked\": true\n    }\n  }\n}"
 						},
 						"url": {
 							"raw": "{{URL}}/apps/{{AppId}}",
@@ -552,54 +502,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete App",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "14a80612-7974-41b0-8760-6fc9872ac29d",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{URL}}/apps/{{AppId}}",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"apps",
-								"{{AppId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -617,17 +519,6 @@
 									"var jsonData = JSON.parse(responseBody);",
 									"pm.environment.set(\"TenantId\", jsonData.data.id);",
 									"",
-									"pm.test(\"Data is present\", function(){",
-									"    var result;",
-									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
-									"    {",
-									"        if(pm.response.json().data[loop].id===pm.variables.get(\"TenantId\")){",
-									"            result=true;",
-									"            break;",
-									"        }",
-									"    }",
-									"    pm.expect(true).to.eql(result);",
-									"})",
 									""
 								],
 								"type": "text/javascript"
@@ -646,7 +537,13 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n    }\n  ]\n}"
@@ -741,7 +638,9 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1219,6 +1118,102 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Delete App",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14a80612-7974-41b0-8760-6fc9872ac29d",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/vnd.api+json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/apps/{{AppId}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"apps",
+						"{{AppId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete App Suite",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bae0be19-08a0-49ac-a5fd-a6f7763c8b4c",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/app-suites/{{AppSuiteId}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"app-suites",
+						"{{AppSuiteId}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
