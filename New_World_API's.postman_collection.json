@@ -77,7 +77,18 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									""
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"AppSuiteId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -103,12 +114,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/app-suites",
+							"raw": "{{URL}}/app-suites/",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"app-suites"
+								"app-suites",
+								""
 							]
 						}
 					},
@@ -227,12 +239,14 @@
 							"script": {
 								"id": "4d4393a2-23fb-4e81-8fc7-ef8c0ded8504",
 								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"AppId\", jsonData.data.id);",
+									"",
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"pm.environment.set(\"AppId\", jsonData.data.id);",
+									"",
 									"",
 									""
 								],
@@ -338,7 +352,18 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									""
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"AppId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -591,7 +616,19 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"pm.environment.set(\"TenantId\", jsonData.data.id);",
-									"console.log(jsonData.data.id);"
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"TenantId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -609,17 +646,10 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae:app:e55efb3e-7e7c-4e8a-a2a9-fa636c249a25\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"appsuite:c6c0dcd8-1105-469c-aaaf-5fb75b5efaae:app:e55efb3e-7e7c-4e8a-a2a9-fa636c249a25\"\n    }\n  ]\n}"
+							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n    }\n  ]\n}"
 						},
 						"url": {
 							"raw": "{{URL}}/tenants",
@@ -644,7 +674,19 @@
 									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"TenantId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -1113,6 +1155,64 @@
 							"path": [
 								"tenants",
 								"{{TenantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add App Suite",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4b6a768-7348-430a-ba60-d2df2eeabb09",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"AppSuiteId\", jsonData.data.id);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"type\": \"appsuites\",\n        \"attributes\": {\n            \"name\": \"Test AppSuite Siva\",\n            \"icon\": \"plus\",\n            \"url\": \"ta.egton.net\",\n            \"rbac\": \"AX3BXX4\",\n            \"app-type\": \"APPSUITE\"\n        }\n    }\n}\n"
+						},
+						"url": {
+							"raw": "{{URL}}/app-suites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites"
 							]
 						}
 					},
