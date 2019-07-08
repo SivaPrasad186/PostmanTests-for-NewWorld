@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "9bf630f4-9b31-4fba-bea2-b82c8bc3c901",
+		"name": "EgtonStaffRecords",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddNewStaff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c390b046-a32e-417b-ad00-2f74d1a28e39",
+						"exec": [
+							"pm.environment.set(\"StaffId\", pm.response.json().data.id);",
+							"",
+							"pm.test(\"Staff is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"type\": \"staffmember\",\n    \"attributes\": {\n      \"firstnames\": \"Chris\",\n      \"lastname\": \"Jones\",\n      \"ern\": \"xxxx-yyyy-zzzz\"\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStaff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95836d21-b35c-439f-9816-9929e95b13b8",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Adamson\");",
+							"});",
+							"",
+							"pm.test(\"Staff is updated\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"type\": \"staffmember\",\n        \"attributes\": {\n            \"ern\": \"xxxx-yyyy-zzzz\",\n            \"firstnames\": \"Charles\",\n            \"lastname\": \"Adamson\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members/{{StaffId}}",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members",
+						"{{StaffId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStaffMember",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eb7fd5-e8c7-4f87-a3ca-ed1d878bcfc8",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members/{{StaffId}}",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members",
+						"{{StaffId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStaffInTenant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b0476e3-f3d7-4cf7-8435-4a138b7576e0",
+						"exec": [
+							"pm.test(\"Data is present\", function(){",
+							"    var result;",
+							"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+							"    {",
+							"        if(pm.response.json().data[loop].id===pm.variables.get(\"StaffId\")){",
+							"            console.log(\"if loop\");",
+							"            result=true;",
+							"            break;",
+							"        }",
+							"    }",
+							"    pm.expect(true).to.eql(result);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members?",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStaffInTenantSortSurnameFirstName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bdb29b1-4935-44eb-8d95-6a6558d871a5",
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members?Sorted=Surname",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members"
+					],
+					"query": [
+						{
+							"key": "Sorted",
+							"value": "Surname"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ArchiveStaffMember",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10d19eea-849c-41c8-9532-cd9da7d3fe4c",
+						"exec": [
+							"pm.test(\"Staff Archived\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://0wayd7crvk.execute-api.eu-west-2.amazonaws.com/Prod/staff-members/{{StaffId}}/archive",
+					"protocol": "https",
+					"host": [
+						"0wayd7crvk",
+						"execute-api",
+						"eu-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"staff-members",
+						"{{StaffId}}",
+						"archive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStaffInTenant-Archived",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cc4aa49-eff9-47bb-b262-91b6987510c9",
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/vnd.api+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://0wayd7crvk.execute-api.eu-west-2.amazonaws.com/Prod/staff-members?archived",
+					"protocol": "https",
+					"host": [
+						"0wayd7crvk",
+						"execute-api",
+						"eu-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"staff-members"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "archived",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnArchiveStaffMember",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d124c34c-db2c-49cd-8f74-5c67f3796e53",
+						"exec": [
+							"pm.test(\"Staff Unarchived\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members/{{StaffId}}/unarchive",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members",
+						"{{StaffId}}",
+						"unarchive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteStaff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e25fa13-d99c-46af-a0c7-f6e8b46a51a4",
+						"exec": [
+							"pm.test(\"Staff successfully deleted\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.environment.unset(\"StaffId\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{StaffRecordsURL}}/Prod/staff-members/{{StaffId}}",
+					"host": [
+						"{{StaffRecordsURL}}"
+					],
+					"path": [
+						"Prod",
+						"staff-members",
+						"{{StaffId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
