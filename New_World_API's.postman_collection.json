@@ -127,6 +127,65 @@
 					"response": []
 				},
 				{
+					"name": "Get All App Suites Archived",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b56468fa-3145-4b4d-919c-c200a307ea0b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"AppSuiteId\"));",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/app-suites?archived",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites"
+							],
+							"query": [
+								{
+									"key": "archived",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Change App Suite Details",
 					"event": [
 						{
@@ -173,6 +232,89 @@
 							"path": [
 								"app-suites",
 								"{{AppSuiteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All App Suites with apps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b56468fa-3145-4b4d-919c-c200a307ea0b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    ",
+									"    var result;",
+									"",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===\"egton:appcatalogue:appsuite:6a7fe960-08ba-4591-88f7-c39e4d3f19df\"){",
+									"            ",
+									"        function count(object, key, subKey) {",
+									"            const noObject = o => !o || typeof o !== 'object';",
+									"            function subCount(object) {",
+									"                if (noObject(object)) return 0;",
+									"                if (subKey in object) return 1;",
+									"                return Object.values(object).reduce((s, o) => s + subCount(o), 0);",
+									"            }",
+									"            if (noObject(object)) return 0;",
+									"            if (key in object) return subCount(object[key]);",
+									"             return Object.values(object).reduce((s, o) => s + count(o, key, subKey), 0);",
+									"        }",
+									"         var data = pm.response.json().data[loop].relationships;",
+									"            console.log(count(data, 'apps', 'id'));",
+									"        ",
+									"            result=true;",
+									"            break;",
+									"           ",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/app-suites?include=apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"app-suites"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "apps"
+								}
 							]
 						}
 					},
@@ -303,56 +445,6 @@
 					"response": []
 				},
 				{
-					"name": "Get All Apps of an app suite",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "2df32c8f-b516-4a1e-aee9-1d68e7077f96",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"url": {
-							"raw": "{{URL}}/app-suites/{{AppSuiteId}}/apps",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"app-suites",
-								"{{AppSuiteId}}",
-								"apps"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update App",
 					"event": [
 						{
@@ -406,6 +498,63 @@
 					"response": []
 				},
 				{
+					"name": "Get tenants of given app",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e9fda5b-5faa-4ccd-8ea8-b1b8d969d9e3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"apps\",\n    \"attributes\": {\n      \"name\": \"Leave-Cards\",\n      \"url\": \"https://hr.egton.net/leavecards\",\n      \"icon\": \"people\",\n      \"rbac\": \"AX234\",\n      \"locked\": true\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/apps/{{AppId}}/tenants",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps",
+								"{{AppId}}",
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Archive App",
 					"event": [
 						{
@@ -449,6 +598,72 @@
 								"apps",
 								"{{AppId}}",
 								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Apps Archived",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2df32c8f-b516-4a1e-aee9-1d68e7077f96",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    var result = false;",
+									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
+									"    {",
+									"        if(pm.response.json().data[loop].id===pm.variables.get(\"AppId\")){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/apps?archived",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"apps"
+							],
+							"query": [
+								{
+									"key": "archived",
+									"value": null
+								}
 							]
 						}
 					},
@@ -518,7 +733,6 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"pm.environment.set(\"TenantId\", jsonData.data.id);",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -546,7 +760,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"egton:appcatalogue:appsuite:3f60008e-2d54-4fcb-997f-b71e4afd36d1:app:cfe85daf-01fb-4a05-84f1-74cce3765449\"\n    }\n  ]\n}"
+							"raw": "{\n  \"data\": {\n    \"type\": \"tenants\",\n    \"attributes\": {\n      \"name\": \"Egton Tenant\",\n      \"ern\": \"https://hr.egton.net/leavecards\"\n    },\n    \"relationships\": {\n      \"appsuites\": {\n        \"data\": [\n          {\n            \"type\": \"appsuites\",\n            \"id\": \"{{AppSuiteId}}\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"appsuites\",\n      \"id\": \"{{AppSuiteId}}\",\n      \"relationships\": {\n        \"apps\": {\n          \"data\": [\n            {\n              \"type\": \"apps\",\n              \"id\": \"{{AppId}}\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"type\": \"apps\",\n      \"id\": \"{{AppId}}\"\n    }\n  ]\n}"
 						},
 						"url": {
 							"raw": "{{URL}}/tenants",
@@ -568,21 +782,13 @@
 							"script": {
 								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
 								"exec": [
-									"",
+									"  var result=false;",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"pm.test(\"Data is present\", function(){",
-									"    var result;",
-									"    for(var loop =0; loop < pm.response.json().data.length; loop++)",
-									"    {",
-									"        if(pm.response.json().data[loop].id===pm.variables.get(\"TenantId\")){",
-									"            result=true;",
-									"            break;",
-									"        }",
-									"    }",
-									"    pm.expect(true).to.eql(result);",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
 									"})"
 								],
 								"type": "text/javascript"
@@ -629,7 +835,331 @@
 					"response": []
 				},
 				{
-					"name": "Get Single Tenant and all associated apps",
+					"name": "Get Single Tenant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and tenanted app-suites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									" pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}?include=appsuites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "appsuites"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and tenanted app-suites and apps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}?include=appsuites, appsuites.apps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "appsuites, appsuites.apps"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and tenanted app-suites and diabledapps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}?include=appsuites, appsuites.disabledapps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "appsuites, appsuites.disabledapps"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and all archieved tenanted app-suites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants/{{TenantId}}?include=disabledappsuites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants",
+								"{{TenantId}}"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "disabledappsuites"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tenant and archieved tenanted app-suites and archieved app",
 					"event": [
 						{
 							"listen": "test",
@@ -674,13 +1204,19 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/tenants/{{TenantId}}",
+							"raw": "{{URL}}/tenants/{{TenantId}}?include=disabledappsuites,disabledappsuites.apps ",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"tenants",
 								"{{TenantId}}"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "disabledappsuites,disabledappsuites.apps "
+								}
 							]
 						}
 					},
@@ -747,7 +1283,7 @@
 							"script": {
 								"id": "871fc79e-4507-423b-b8f1-0737c44e2af1",
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
+									"pm.test(\"Tenant Archived\", function () {",
 									"    pm.response.to.have.status(204);",
 									"});"
 								],
@@ -793,6 +1329,72 @@
 					"response": []
 				},
 				{
+					"name": "Get All archived Tenants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Archived Tenant is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants?archived",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants"
+							],
+							"query": [
+								{
+									"key": "archived",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Unarchive Tenant",
 					"event": [
 						{
@@ -800,7 +1402,7 @@
 							"script": {
 								"id": "871fc79e-4507-423b-b8f1-0737c44e2af1",
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
+									"pm.test(\"Tenant Unarchived\", function () {",
 									"    pm.response.to.have.status(204);",
 									"});"
 								],
@@ -846,6 +1448,72 @@
 					"response": []
 				},
 				{
+					"name": "Get All archived Tenants - Unarchive check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Unarchieved tenant is not present in Archieved Tenant List\", function(){",
+									"pm.expect(pm.response.text()).to.not.include(pm.environment.get(\"TenantId\"));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/vnd.api+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tenants?archived",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tenants"
+							],
+							"query": [
+								{
+									"key": "archived",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Link app to tenant",
 					"event": [
 						{
@@ -884,14 +1552,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/tenants/{{TenantId}}/apps/{{AppId}}",
+							"raw": "{{URL}}/tenants/{{TenantId}}/app-suites/{{AppId}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"tenants",
 								"{{TenantId}}",
-								"apps",
+								"app-suites",
 								"{{AppId}}"
 							]
 						}
@@ -906,9 +1574,13 @@
 							"script": {
 								"id": "b1e989c7-ca44-4d76-8c9a-c15c0a61ad55",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+									"pm.test(\"Apps linked to Tenants are retrieved\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									"pm.test(\"Data is present\", function(){",
+									"pm.expect(pm.response.text()).to.include(pm.environment.get(\"AppId\"));",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -956,7 +1628,7 @@
 					"response": []
 				},
 				{
-					"name": "UnLink app to tenant Copy",
+					"name": "Archieve Tenant app association",
 					"event": [
 						{
 							"listen": "test",
@@ -994,14 +1666,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/tenants/{{TenantId}}/apps/{{AppId}}",
+							"raw": "{{URL}}/tenants/{{TenantId}}/app-suites/{{AppId}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"tenants",
 								"{{TenantId}}",
-								"apps",
+								"app-suites",
 								"{{AppId}}"
 							]
 						}
@@ -1054,64 +1726,6 @@
 							"path": [
 								"tenants",
 								"{{TenantId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add App Suite",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d4b6a768-7348-430a-ba60-d2df2eeabb09",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"pm.environment.set(\"AppSuiteId\", jsonData.data.id);",
-									"",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjdXN0b206b3JnYW5pc2F0aW9uX3V1aWQiOiIzIiwiYWN0aXZpdGllcyI6WyJCMTIzIiwiQjU1NSIsIkEwMDAiXX0.-_ccQ0rL6XygT6yHh5GJ0NiD93lF1r_WGAXoVWAStWw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"data\": {\n        \"type\": \"appsuites\",\n        \"attributes\": {\n            \"name\": \"Test AppSuite Siva\",\n            \"icon\": \"plus\",\n            \"url\": \"ta.egton.net\",\n            \"rbac\": \"AX3BXX4\",\n            \"app-type\": \"APPSUITE\"\n        }\n    }\n}\n"
-						},
-						"url": {
-							"raw": "{{URL}}/app-suites",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"app-suites"
 							]
 						}
 					},
